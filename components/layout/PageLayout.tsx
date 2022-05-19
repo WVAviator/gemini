@@ -14,7 +14,7 @@ const globalStyles = css`
 			sans-serif;
 	}
 	.restrictWidth {
-		width: min(96.5%, 90rem);
+		width: min(95%, 90rem);
 		margin: 0 auto;
 	}
 `;
