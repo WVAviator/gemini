@@ -29,7 +29,7 @@ const useButtonStyles = (variant: ButtonVariant) => {
 			`,
 			outlined: css`
 				background-color: transparent;
-				color: ${theme.colors.primary};
+				color: ${theme.colors.secondary};
 				border: 1px solid ${theme.colors.secondary};
 				&:hover {
 					background-color: ${theme.colors.secondary};
