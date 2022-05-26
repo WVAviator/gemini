@@ -2,6 +2,7 @@
 import { css, Theme, useTheme } from "@emotion/react";
 import Image, { ImageProps } from "next/image";
 import React, { useMemo } from "react";
+import ArrowSmRightIcon from "@heroicons/react/solid/ArrowSmRightIcon";
 import Button from "./Button";
 
 interface HeroImage extends Pick<ImageProps, "src" | "alt"> {}
@@ -152,7 +153,12 @@ const Hero = ({
 				<div css={headlineStyles}>
 					<h1>{headlineText}</h1>
 					<div css={buttonContainerStyles}>
-						<Button css={buttonStyles}>{firstButtonText}</Button>
+						<Button
+							css={buttonStyles}
+							endIcon={<ArrowSmRightIcon />}
+						>
+							{firstButtonText}
+						</Button>
 						<Button css={buttonStyles} variant="outlined">
 							{secondButtonText}
 						</Button>

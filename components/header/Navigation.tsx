@@ -36,6 +36,7 @@ const useNavigationStyles = (open: boolean) => {
 		return css`
 			background-color: white;
 			position: absolute;
+			z-index: 1;
 			top: 5rem;
 			width: 100%;
 			transition: transform 200ms 0ms ${easingFunction};
@@ -45,7 +46,7 @@ const useNavigationStyles = (open: boolean) => {
 				position: relative;
 				top: 0;
 			}
-			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+			box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 			padding-inline: 6.5rem;
 		`;
 	}, [open, theme]);

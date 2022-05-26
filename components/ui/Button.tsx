@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from "@emotion/react";
 import Link from "next/link";
-import react, { useMemo } from "react";
+import react, { ReactElement, useMemo } from "react";
 
 type ButtonVariant = "filled" | "outlined";
 
@@ -10,7 +10,7 @@ interface ButtonProps {
 	variant?: ButtonVariant;
 	children?: React.ReactNode;
 	className?: string;
-	endIcon?: react.ReactElement<any, any> | null;
+	endIcon?: ReactElement | null;
 }
 
 const useButtonStyles = (variant: ButtonVariant) => {
@@ -67,23 +67,26 @@ const Button = ({
 }: ButtonProps) => {
 	const renderedButton = (
 		<button css={useButtonStyles(variant)} className={className}>
-			<span
+			<div
 				css={css`
 					display: flex;
 					align-items: center;
+					gap: 1em;
 				`}
 			>
-				{children}
+				<span>{children}</span>
 
-				{endIcon &&
-					react.cloneElement(endIcon, {
-						css: css`
+				{endIcon && (
+					<span
+						css={css`
 							width: 1.5rem;
 							height: 1.5rem;
-							margin-left: 0.5rem;
-						`,
-					})}
-			</span>
+						`}
+					>
+						{react.cloneElement(endIcon)}
+					</span>
+				)}
+			</div>
 		</button>
 	);
 

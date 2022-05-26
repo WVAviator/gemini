@@ -7,7 +7,7 @@ export default function Document() {
 				<meta charSet="UTF-8" />
 				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-				<link rel="icon" href="/favicon.png" />
+				<link rel="icon" href="/logo/favicon.png" />
 				<link
 					href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
 					rel="stylesheet"
