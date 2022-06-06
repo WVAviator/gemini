@@ -4,6 +4,7 @@ const theme: Theme = {
 	colors: {
 		primary: "#ACF572",
 		secondary: "#612497",
+		background: "#F5F5F5",
 	},
 	breakpoints: {
 		sm: "576px",

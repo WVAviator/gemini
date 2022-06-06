@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme, useTheme } from "@emotion/react";
 import Image, { ImageProps } from "next/image";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import ArrowSmRightIcon from "@heroicons/react/solid/ArrowSmRightIcon";
 import Button from "./Button";
+import useWindowSize from "../../lib/hooks/useWindowSize";
 
 interface HeroImage extends Pick<ImageProps, "src" | "alt"> {}
 
@@ -14,8 +15,32 @@ interface HeroProps {
 	secondButtonText: string;
 }
 
-const useHeroStyles = () => {
+const useHeroStyles = (
+	sectionRef: React.MutableRefObject<HTMLDivElement | null>
+) => {
 	const theme = useTheme();
+	const { width } = useWindowSize();
+
+	const sectionHeight = useMemo(() => {
+		width;
+		if (sectionRef.current) {
+			return sectionRef.current.clientHeight / 16;
+		}
+		return 25;
+	}, [sectionRef, width]);
+
+	const sectionStyles = useMemo(() => {
+		return css`
+			height: ${sectionHeight}rem;
+			background-color: ${theme.colors.background};
+			@media (min-width: ${theme.breakpoints.md}) {
+				height: ${sectionHeight}rem;
+			}
+			@media (min-width: ${theme.breakpoints.lg}) {
+				height: ${sectionHeight}rem;
+			}
+		`;
+	}, [theme, sectionHeight]);
 
 	const heroImageStyles = useMemo(() => {
 		return css`
@@ -25,7 +50,6 @@ const useHeroStyles = () => {
 
 	const backgroundStyles = useMemo(
 		() => css`
-			background-color: $color-grayBackground;
 			position: relative;
 			z-index: 0;
 			height: 30rem;
@@ -41,7 +65,7 @@ const useHeroStyles = () => {
 
 	const contentStyles = useMemo(
 		() => css`
-			z-index: 1;
+			z-index: 2;
 			position: relative;
 			padding-top: 20rem;
 			@media (min-width: ${theme.breakpoints.md}) {
@@ -58,6 +82,8 @@ const useHeroStyles = () => {
 		() =>
 			css`
 				width: min(99%, 41rem);
+				position: relative;
+				z-index: 3;
 				background-color: white;
 				padding: 2.25rem 2.625rem;
 				box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
@@ -112,6 +138,7 @@ const useHeroStyles = () => {
 	);
 
 	return {
+		sectionStyles,
 		heroImageStyles,
 		backgroundStyles,
 		contentStyles,
@@ -127,41 +154,50 @@ const Hero = ({
 	firstButtonText,
 	secondButtonText,
 }: HeroProps) => {
+	const sectionRef = useRef(null);
+
 	const {
+		sectionStyles,
 		heroImageStyles,
 		backgroundStyles,
 		contentStyles,
 		headlineStyles,
 		buttonStyles,
 		buttonContainerStyles,
-	} = useHeroStyles();
+	} = useHeroStyles(sectionRef);
 
 	return (
-		<section css={backgroundStyles}>
-			{
-				<Image
-					src={heroImage.src}
-					alt={heroImage.alt}
-					css={heroImageStyles}
-					objectFit="cover"
-					objectPosition="center"
-					layout="fill"
-					priority
-				/>
-			}
-			<div css={contentStyles} className="restrictWidth">
-				<div css={headlineStyles}>
-					<h1>{headlineText}</h1>
-					<div css={buttonContainerStyles}>
-						<Button
-							css={buttonStyles}
-							endIcon={<ArrowSmRightIcon />}
-						>
-							{firstButtonText}
-						</Button>
-						<Button css={buttonStyles} variant="outlined">
-							{secondButtonText}
-						</Button>
+		<section css={sectionStyles}>
+			<div css={backgroundStyles}>
+				{
+					<Image
+						src={heroImage.src}
+						alt={heroImage.alt}
+						css={heroImageStyles}
+						objectFit="cover"
+						objectPosition="center"
+						layout="fill"
+						priority
+					/>
+				}
+				<div
+					css={contentStyles}
+					className="restrictWidth"
+					ref={sectionRef}
+				>
+					<div css={headlineStyles}>
+						<h1>{headlineText}</h1>
+						<div css={buttonContainerStyles}>
+							<Button
+								css={buttonStyles}
+								endIcon={<ArrowSmRightIcon />}
+							>
+								{firstButtonText}
+							</Button>
+							<Button css={buttonStyles} variant="outlined">
+								{secondButtonText}
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>

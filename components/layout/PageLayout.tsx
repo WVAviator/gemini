@@ -17,6 +17,10 @@ const globalStyles = css`
 		width: min(95%, 90rem);
 		margin: 0 auto;
 	}
+	html {
+		max-width: 100vw;
+		overflow-x: hidden;
+	}
 `;
 
 interface PageLayoutProps {
