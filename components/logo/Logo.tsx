@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme, useTheme } from "@emotion/react";
+import Link from "next/link";
 import { useMemo } from "react";
 import LogoSVG from "./LogoSVG";
 
@@ -13,6 +14,7 @@ const useLogoStyles = (color: keyof Theme["colors"]) => {
 	const theme = useTheme();
 	const logoStyles = useMemo(() => {
 		return css`
+			cursor: pointer;
 			display: flex;
 			gap: 1.5rem;
 			align-items: center;
@@ -25,6 +27,10 @@ const useLogoStyles = (color: keyof Theme["colors"]) => {
 				@media (min-width: ${theme.breakpoints.md}) {
 					display: inline;
 				}
+			}
+			transition: all 0.2s;
+			&:hover {
+				filter: brightness(0.9);
 			}
 		`;
 	}, [theme, color]);
@@ -40,13 +46,15 @@ const Logo: React.FC<LogoProps> = ({
 	const { logoStyles } = useLogoStyles(textColor);
 
 	return (
-		<div css={logoStyles}>
-			<LogoSVG bgColor={pawColor} fgColor={geminiColor} />
-			<div>
-				Gemini
-				<span> Pet Rescue and Transport</span>
-			</div>
-		</div>
+		<Link href="/">
+			<a css={logoStyles}>
+				<LogoSVG bgColor={pawColor} fgColor={geminiColor} />
+				<div>
+					Gemini
+					<span> Pet Rescue and Transport</span>
+				</div>
+			</a>
+		</Link>
 	);
 };
 

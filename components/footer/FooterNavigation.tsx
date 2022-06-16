@@ -30,6 +30,10 @@ const useFooterNavigationStyles = () => {
 					text-decoration: none;
 					font-size: 1.1rem;
 					color: ${theme.colors.white};
+					&:hover {
+						color: ${theme.colors.primary};
+					}
+					transition: color 0.2s ease-in-out;
 				}
 			}
 		`;
