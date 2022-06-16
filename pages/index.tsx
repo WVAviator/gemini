@@ -24,7 +24,6 @@ const Home: NextPage = () => {
 				firstButtonText="Get involved!"
 				secondButtonText="Browse Adoptions"
 			/>
-			<Watermark />
 			<GridSection>
 				<AdjacentInfo>
 					<Image

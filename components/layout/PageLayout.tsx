@@ -1,4 +1,5 @@
 import { css, Global } from "@emotion/react";
+import Footer from "../footer/Footer";
 import Header from "../header/Header";
 //import Footer from "../footer/Footer";
 import PageMeta from "../meta/PageMeta";
@@ -34,7 +35,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
 			<PageMeta />
 			<Header />
 			<main id="main">{children}</main>
-			{/* <Footer /> */}
+			<Footer />
 		</>
 	);
 };

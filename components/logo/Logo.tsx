@@ -3,37 +3,48 @@ import { css, Theme, useTheme } from "@emotion/react";
 import { useMemo } from "react";
 import LogoSVG from "./LogoSVG";
 
-const createLogoStyle = (theme: Theme) => css`
-	display: flex;
-	gap: 1.5rem;
-	align-items: center;
-	font-size: 1.625rem;
-	font-weight: 600;
-	color: ${theme.colors.secondary};
-	height: 100%;
-`;
+interface LogoProps {
+	textColor?: keyof Theme["colors"];
+	pawColor?: keyof Theme["colors"];
+	geminiColor?: keyof Theme["colors"];
+}
 
-const createLogoTextMediaQuery = (theme: Theme) => css`
-	display: none;
-	@media (min-width: ${theme.breakpoints.md}) {
-		display: inline;
-	}
-`;
-
-const Logo = () => {
+const useLogoStyles = (color: keyof Theme["colors"]) => {
 	const theme = useTheme();
-	const logoStyle = useMemo(() => createLogoStyle(theme), [theme]);
-	const logoTextMediaQuery = useMemo(
-		() => createLogoTextMediaQuery(theme),
-		[theme]
-	);
+	const logoStyles = useMemo(() => {
+		return css`
+			display: flex;
+			gap: 1.5rem;
+			align-items: center;
+			font-size: 1.625rem;
+			font-weight: 600;
+			color: ${theme.colors[color]};
+			height: 100%;
+			& span {
+				display: none;
+				@media (min-width: ${theme.breakpoints.md}) {
+					display: inline;
+				}
+			}
+		`;
+	}, [theme, color]);
+	return { logoStyles };
+};
+
+const Logo: React.FC<LogoProps> = ({
+	textColor = "secondary",
+	pawColor = "secondary",
+	geminiColor = "white",
+}) => {
+	const theme = useTheme();
+	const { logoStyles } = useLogoStyles(textColor);
 
 	return (
-		<div css={logoStyle}>
-			<LogoSVG />
+		<div css={logoStyles}>
+			<LogoSVG bgColor={pawColor} fgColor={geminiColor} />
 			<div>
 				Gemini
-				<span css={logoTextMediaQuery}> Pet Rescue and Transport</span>
+				<span> Pet Rescue and Transport</span>
 			</div>
 		</div>
 	);

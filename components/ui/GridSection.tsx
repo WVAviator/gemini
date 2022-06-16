@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from "@emotion/react";
 import React, { useMemo } from "react";
+import Watermark from "./Watermark";
 
 interface GridSectionProps {
 	children: React.ReactNode;
@@ -37,6 +38,8 @@ const useGridSectionStyles = () => {
 
 	const sectionStyles = useMemo(() => {
 		return css`
+			isolation: isolate;
+			overflow: hidden;
 			background-color: ${theme.colors.background};
 		`;
 	}, [theme]);
@@ -50,6 +53,7 @@ const GridSection: React.FC<GridSectionProps> = ({ children }) => {
 
 	return (
 		<section css={sectionStyles}>
+			<Watermark />
 			<div css={gridSectionStyles} className="restrictWidth">
 				{React.Children.map(children, (child) => {
 					return (
