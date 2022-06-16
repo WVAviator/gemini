@@ -34,7 +34,7 @@ const useNavigationStyles = (open: boolean) => {
 
 	const navStyles = useMemo(() => {
 		return css`
-			background-color: white;
+			background-color: ${theme.colors.background};
 			position: absolute;
 			z-index: 1;
 			top: 5rem;

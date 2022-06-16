@@ -1,4 +1,5 @@
 import { css, Global } from "@emotion/react";
+import Footer from "../footer/Footer";
 import Header from "../header/Header";
 //import Footer from "../footer/Footer";
 import PageMeta from "../meta/PageMeta";
@@ -17,6 +18,10 @@ const globalStyles = css`
 		width: min(95%, 90rem);
 		margin: 0 auto;
 	}
+	html {
+		max-width: 100vw;
+		overflow-x: hidden;
+	}
 `;
 
 interface PageLayoutProps {
@@ -30,7 +35,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
 			<PageMeta />
 			<Header />
 			<main id="main">{children}</main>
-			{/* <Footer /> */}
+			<Footer />
 		</>
 	);
 };
