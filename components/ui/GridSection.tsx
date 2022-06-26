@@ -5,9 +5,10 @@ import Watermark from "./Watermark";
 
 interface GridSectionProps {
 	children: React.ReactNode;
+	maxInternalWidth?: string;
 }
 
-const useGridSectionStyles = () => {
+const useGridSectionStyles = (maxInternalWidth: string) => {
 	const theme = useTheme();
 
 	const gridSectionStyles = useMemo(() => {
@@ -32,9 +33,9 @@ const useGridSectionStyles = () => {
 
 	const innerStyles = useMemo(() => {
 		return css`
-			max-width: 65rem;
+			max-width: ${maxInternalWidth};
 		`;
-	}, []);
+	}, [maxInternalWidth]);
 
 	const sectionStyles = useMemo(() => {
 		return css`
@@ -47,9 +48,12 @@ const useGridSectionStyles = () => {
 	return { sectionStyles, gridSectionStyles, innerStyles };
 };
 
-const GridSection: React.FC<GridSectionProps> = ({ children }) => {
+const GridSection: React.FC<GridSectionProps> = ({
+	children,
+	maxInternalWidth = "65rem",
+}) => {
 	const { sectionStyles, gridSectionStyles, innerStyles } =
-		useGridSectionStyles();
+		useGridSectionStyles(maxInternalWidth);
 
 	return (
 		<section css={sectionStyles}>

@@ -10,6 +10,6 @@ module.exports = {
 	rewrites: () => [STUDIO_REWRITE],
 	reactStrictMode: true,
 	images: {
-		domains: ["cdn.sanity.io"],
+		domains: ["cdn.sanity.io", "www.shelterluv.com"],
 	},
 };

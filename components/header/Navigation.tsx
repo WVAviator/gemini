@@ -22,7 +22,7 @@ const defaultNavLinks = [
 		text: "About",
 	},
 	{
-		href: "/adopt",
+		href: "/adoptions",
 		text: "Adopt",
 	},
 ];
