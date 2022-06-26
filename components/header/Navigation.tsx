@@ -22,7 +22,7 @@ const defaultNavLinks = [
 		text: "About",
 	},
 	{
-		href: "/adopt",
+		href: "/adoptions",
 		text: "Adopt",
 	},
 ];
@@ -36,7 +36,7 @@ const useNavigationStyles = (open: boolean) => {
 		return css`
 			background-color: ${theme.colors.background};
 			position: absolute;
-			z-index: 1;
+			z-index: 2;
 			top: 5rem;
 			width: 100%;
 			transition: transform 200ms 0ms ${easingFunction};
