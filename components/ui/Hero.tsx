@@ -51,7 +51,7 @@ const useHeroStyles = (
 	const backgroundStyles = useMemo(
 		() => css`
 			position: relative;
-			z-index: 0;
+			z-index: 1;
 			height: 30rem;
 			@media (min-width: ${theme.breakpoints.md}) {
 				height: 32rem;
