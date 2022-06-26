@@ -44,6 +44,7 @@ const useButtonStyles = (variant: ButtonVariant) => {
 	const baseStyles = useMemo(
 		() => css`
 			transition: all 100ms ease-in-out;
+			font-size: 1rem;
 			cursor: pointer;
 			padding: 0.5rem 1.5rem;
 			border-radius: 0.5rem;

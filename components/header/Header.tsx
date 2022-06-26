@@ -11,7 +11,8 @@ const generateHeaderStyles = (theme: Theme) => css`
 	width: 100vw;
 	min-height: 5rem;
 	position: relative;
-	z-index: 2;
+	isolation: isolate;
+	z-index: 3;
 	box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 `;
 
