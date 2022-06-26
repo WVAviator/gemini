@@ -5,16 +5,7 @@ const key = process.env.SHELTERLUV_API_KEY || "";
 const baseUrl = "https://www.shelterluv.com/api/v1";
 
 export const getShelterluvAnimals = async () => {
-	console.log("Fetching Shelterluv animals...", key);
-	const response = await fetchAnimalData(`${baseUrl}/animals`);
-
-	const animals = response.data.animals as ShelterluvAnimal[];
-
-	return filterResults(animals);
-};
-
-const fetchAnimalData = async (queryUrl: string) => {
-	const response = await axios.get(queryUrl, {
+	const response = await axios.get(`${baseUrl}/animals`, {
 		headers: {
 			"X-Api-Key": key,
 		},
@@ -22,7 +13,21 @@ const fetchAnimalData = async (queryUrl: string) => {
 			status_type: "publishable",
 		},
 	});
-	return response;
+
+	const animals = response.data.animals as ShelterluvAnimal[];
+
+	return filterResults(animals);
+};
+
+export const getShelterluvAnimal = async (animalId: string) => {
+	const url = `${baseUrl}/animals/${animalId}`;
+	const response = await axios.get(url, {
+		headers: {
+			"X-Api-Key": key,
+		},
+	});
+	const animal = response.data as ShelterluvAnimal;
+	return animal;
 };
 
 const filterResults = (animals: ShelterluvAnimal[]) => {

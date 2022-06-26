@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from "@emotion/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo } from "react";
 import { ShelterluvAnimal } from "../../lib/types";
 
@@ -73,22 +74,24 @@ const AnimalCard: React.FC<AnimalCardProps> = ({ animal }) => {
 		useAnimalCardStyles();
 
 	return (
-		<article css={outerStyles}>
-			<div css={innerStyles}>
-				<div css={imageStyles}>
-					<Image
-						src={animal.CoverPhoto}
-						alt={`A ${animal.Color} ${animal.Breed}`}
-						layout="fill"
-						objectFit="cover"
-					/>
+		<Link href={`/adoptions/${animal["Internal-ID"].toString()}`}>
+			<article css={outerStyles}>
+				<div css={innerStyles}>
+					<div css={imageStyles}>
+						<Image
+							src={animal.CoverPhoto}
+							alt={`A ${animal.Color} ${animal.Breed}`}
+							layout="fill"
+							objectFit="cover"
+						/>
+					</div>
+					<div css={descStyles}>
+						<h2>{animal.Name}</h2>
+						<p>{animal.Breed}</p>
+					</div>
 				</div>
-				<div css={descStyles}>
-					<h2>{animal.Name}</h2>
-					<p>{animal.Breed}</p>
-				</div>
-			</div>
-		</article>
+			</article>
+		</Link>
 	);
 };
 export default AnimalCard;
