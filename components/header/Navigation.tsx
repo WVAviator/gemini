@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme, useTheme } from "@emotion/react";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useEventListen } from "react-synthetic-events";
+import { MenuEventPayload } from "../ui/MenuIcon";
 
 interface NavigationProps {
-	open: boolean;
-	setOpen: (open: boolean) => void;
 	navLinks?: {
 		href: string;
 		text: string;
@@ -106,11 +106,13 @@ const useNavigationStyles = (open: boolean) => {
 	};
 };
 
-const Navigation = ({
-	open,
-	setOpen,
-	navLinks = defaultNavLinks,
-}: NavigationProps) => {
+const Navigation = ({ navLinks = defaultNavLinks }: NavigationProps) => {
+	const [open, setOpen] = useState(false);
+
+	useEventListen<MenuEventPayload>("mobile-menu-open", (detail) => {
+		setOpen(detail?.payload.open ?? false);
+	});
+
 	const { navStyles, ulStyles, liStyles, aStyles } =
 		useNavigationStyles(open);
 

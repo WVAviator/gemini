@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme, useTheme } from "@emotion/react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Logo from "../logo/Logo";
 import Button from "../ui/Button";
 import MenuIcon from "../ui/MenuIcon";
@@ -25,7 +25,6 @@ const headerContentStyles = css`
 const Header = () => {
 	const theme = useTheme();
 	const headerStyles = useMemo(() => generateHeaderStyles(theme), [theme]);
-	const [menuOpen, setMenuOpen] = useState(false);
 
 	return (
 		<header>
@@ -43,10 +42,10 @@ const Header = () => {
 					>
 						Donate
 					</Button>
-					<MenuIcon open={menuOpen} setOpen={setMenuOpen} />
+					<MenuIcon />
 				</div>
 			</div>
-			<Navigation open={menuOpen} setOpen={setMenuOpen} />
+			<Navigation />
 		</header>
 	);
 };

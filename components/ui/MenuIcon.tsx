@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from "@emotion/react";
 import { useMemo, useState } from "react";
+import { useEventDispatch } from "react-synthetic-events";
 
-interface MenuIconProps {
+export interface MenuEventPayload {
 	open: boolean;
-	setOpen: (open: boolean) => void;
 }
 
 const useMenuIconStyles = (open: boolean) => {
@@ -87,7 +87,18 @@ const useMenuIconStyles = (open: boolean) => {
 	};
 };
 
-const MenuIcon = ({ open, setOpen }: MenuIconProps) => {
+const MenuIcon = () => {
+	const [open, setOpen] = useState(false);
+
+	const sendOpenEvent =
+		useEventDispatch<MenuEventPayload>("mobile-menu-open");
+
+	const handleClick = () => {
+		const currentOpen = open;
+		setOpen(!currentOpen);
+		sendOpenEvent({ open: !currentOpen });
+	};
+
 	const { topStyles, bottomStyles, midStyles, buttonStyles } =
 		useMenuIconStyles(open);
 
@@ -100,7 +111,7 @@ const MenuIcon = ({ open, setOpen }: MenuIconProps) => {
 			aria-expanded={open}
 			aria-controls="mobilemenu"
 			css={buttonStyles}
-			onClick={() => setOpen(!open)}
+			onClick={handleClick}
 		>
 			<div
 				css={css`
