@@ -2,7 +2,7 @@
 import { css, Theme, useTheme } from "@emotion/react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { useEventListen } from "react-synthetic-events";
+import { useEventDispatch, useEventListen } from "react-synthetic-events";
 import { MenuEventPayload } from "../ui/MenuIcon";
 
 interface NavigationProps {
@@ -113,11 +113,14 @@ const Navigation = ({ navLinks = defaultNavLinks }: NavigationProps) => {
 		setOpen(detail?.payload.open ?? false);
 	});
 
+	const menuItemClicked = useEventDispatch("menu-item-clicked");
+
 	const { navStyles, ulStyles, liStyles, aStyles } =
 		useNavigationStyles(open);
 
 	const handleClick = () => {
 		setOpen(false);
+		menuItemClicked();
 	};
 
 	return (

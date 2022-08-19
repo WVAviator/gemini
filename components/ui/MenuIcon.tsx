@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from "@emotion/react";
 import { useMemo, useState } from "react";
-import { useEventDispatch } from "react-synthetic-events";
+import { useEventDispatch, useEventListen } from "react-synthetic-events";
 
 export interface MenuEventPayload {
 	open: boolean;
@@ -93,10 +93,13 @@ const MenuIcon = () => {
 	const sendOpenEvent =
 		useEventDispatch<MenuEventPayload>("mobile-menu-open");
 
+	useEventListen("menu-item-clicked", () => {
+		setOpen(false);
+	});
+
 	const handleClick = () => {
-		const currentOpen = open;
-		setOpen(!currentOpen);
-		sendOpenEvent({ open: !currentOpen });
+		setOpen(!open);
+		sendOpenEvent({ open: !open });
 	};
 
 	const { topStyles, bottomStyles, midStyles, buttonStyles } =
